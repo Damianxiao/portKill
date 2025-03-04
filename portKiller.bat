@@ -59,4 +59,15 @@ if %port% lss 1 (
     pause
     goto menu
 )
-if %port% gtr 65
+if %port% gtr 65535 (
+    echo Port must be between 1 and 65535.
+    pause
+    goto menu
+)
+go run main.go %port%
+pause
+goto menu
+
+:exit
+echo Goodbye!
+exit /b
