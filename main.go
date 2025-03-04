@@ -65,6 +65,7 @@ func GetConnections() []ConnectionEntity {
 // List 列出端口信息
 func List(port uint32) {
 	connections := GetConnections()
+	found := false
 	if port == 0 {
 		fmt.Printf("%-10s%-10s%s\n", "port", "pid", "name")
 		for _, con := range connections {
@@ -75,8 +76,12 @@ func List(port uint32) {
 			if con.Port == port {
 				fmt.Printf("%-10s%-10s%s\n", "port", "pid", "name")
 				fmt.Printf("%-10d%-10d%s\n", con.Port, con.Pid, con.Name)
+				found = true
 				break
 			}
+		}
+		if !found {
+			fmt.Printf("Port %d is not in use.\n", port)
 		}
 	}
 }
